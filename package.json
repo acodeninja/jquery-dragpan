@@ -1,6 +1,6 @@
 {
   "name": "jquery-dragpan",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Lawrence Goldstien",
   "description": "jQuery plugin allowing easy click and drag to pan on elements",
   "contributors": [
