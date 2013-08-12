@@ -17,7 +17,13 @@
 
  (function ($) {
 
-    $.fn.dragpan = function () {
+    $.fn.dragpan = function ( options ) {
+        // The options for the plugin
+        var _options = $.extend({
+            speedX: 10, // X Speed default is 10
+            speedY: 10 // Y Speed default is 10
+        }, options);
+
         // Set up the variables and default values
         var _this = this,
             maxX,
@@ -82,8 +88,9 @@
                 if ( toggle === 'on' ) {
                     $parent.mousemove(function (e) {
 
-                        var x = _this.lastPosX - e.clientX;
-                        var y = _this.lastPosY - e.clientY;
+                        var x = ( _this.lastPosX - e.clientX ) * (_options.speedX / 10);
+                        var y = ( _this.lastPosY - e.clientY ) * (_options.speedY / 10);
+                        console.log(x,y);
 
                         dragPan.updateScrollPosition( x, y, true );
 
