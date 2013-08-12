@@ -36,6 +36,9 @@
                 _this.maxX = $child.prop('scrollWidth');
                 _this.maxY = $child.prop('scrollHeight');
 
+                // Set the all-scroll cursor
+                $parent.css( "cursor", "all-scroll" );
+
                 // Get the current scroll position
                 _this.posX = $parent.scrollLeft();
                 _this.posY = $parent.scrollTop();
