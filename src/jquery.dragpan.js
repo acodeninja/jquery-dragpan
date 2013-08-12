@@ -1,4 +1,21 @@
-(function ($) {
+/**
+ * jQuery dragpan
+ *
+ * Creates a click and drag to pan region from a jQuery selector
+ *
+ * Example:
+ *
+ *  <div id="parent"><div id="child"></div></div>
+ *  
+ *  $('#parent').dragpan();
+ *
+ * ----------------------------------------------------------------------
+ *
+ * Copyright (c) 2013 Lawrence Goldstien @lgoldstien
+ * 
+ */
+
+ (function ($) {
 
     $.fn.dragpan = function () {
         // Set up the variables and default values
