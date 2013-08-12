@@ -23,7 +23,8 @@
             // The options for the plugin
             var _options = $.extend({
                 speedX: 10, // X Speed default is 10
-                speedY: 10 // Y Speed default is 10
+                speedY: 10, // Y Speed default is 10
+                parent: this // The parent selector
             }, options);
 
             // Set up the variables and default values
@@ -34,8 +35,8 @@
                 posY,
                 lastPosX = 0,
                 lastPosY = 0,
-                $parent = _this,
-                $child = _this.children();
+                $parent = _options.parent,
+                $child = $parent.children();
 
             var dragPan = {
                 // Set up the dragpan plugin for the element we want to work with

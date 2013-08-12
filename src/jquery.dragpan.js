@@ -21,7 +21,8 @@
         // The options for the plugin
         var _options = $.extend({
             speedX: 10, // X Speed default is 10
-            speedY: 10 // Y Speed default is 10
+            speedY: 10, // Y Speed default is 10
+            parent: this // The parent selector
         }, options);
 
         // Set up the variables and default values
@@ -32,12 +33,13 @@
             posY,
             lastPosX = 0,
             lastPosY = 0,
-            $parent = _this,
-            $child = _this.children();
+            $parent = _options.parent,
+            $child = $parent.children();
 
         var dragPan = {
             // Set up the dragpan plugin for the element we want to work with
             setup: function () {
+
                 // Get the maximum width and height of the scrollable content
                 _this.maxX = $child.prop('scrollWidth');
                 _this.maxY = $child.prop('scrollHeight');
@@ -90,7 +92,6 @@
 
                         var x = ( _this.lastPosX - e.clientX ) * (_options.speedX / 10);
                         var y = ( _this.lastPosY - e.clientY ) * (_options.speedY / 10);
-                        console.log(x,y);
 
                         dragPan.updateScrollPosition( x, y, true );
 
@@ -106,8 +107,6 @@
         };
         
         dragPan.setup();
-
-        return dragPan;
     };
 
 }( jQuery ));
