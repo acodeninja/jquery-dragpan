@@ -1,8 +1,8 @@
 {
   "name": "jquery-dragpan",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "author": "Lawrence Goldstien",
-  "description": "jQuery plugin allowing easy click and drag to pan on elements",
+  "description": "jQuery plugin allowing easy click and drag to pan on elements.",
   "contributors": [
     {
       "name": "Lawrence Goldstien",
@@ -15,7 +15,7 @@
     "url": "git://github.com/lgoldstien/jquery-dragpan.git"
   },
   "dependencies": {
-    "jquery": "1.9.x"
+    "jquery": ">=1.9"
   },
   "keywords": ["Scrolling", "Drag", "Pan", "User Interaction"]
 }
