@@ -85,9 +85,35 @@
                     $parent.scrollTop( y );
                 }
             },
+            disableSelectionOnDrag: function ( toggle ) {
+                // An object of the css styles
+                var cssApplyStyles = {
+                    "-moz-user-select" : "moz-none",
+                    "-khtml-user-select" : "none",
+                    "-webkit-user-select" : "none",
+                    "-ms-user-select" : "none",
+                    "user-select" : "none"
+                };
+                var cssRemoveStyles = {
+                    "-moz-user-select" : "",
+                    "-khtml-user-select" : "",
+                    "-webkit-user-select" : "",
+                    "-ms-user-select" : "",
+                    "user-select" : ""
+                };
+
+                if ( toggle === 'on' ) {
+                    $('body').css(cssApplyStyles);
+                } else {
+                    $('body').css(cssRemoveStyles);
+                }
+
+            },
             dragging: function ( toggle ) {
                 // If toggling dragging on then add a mousemove event to update the position
                 if ( toggle === 'on' ) {
+                    dragPan.disableSelectionOnDrag( 'on' );
+
                     $parent.mousemove(function (e) {
 
                         var x = ( _this.lastPosX - e.clientX ) * (_options.speedX / 10);
@@ -100,6 +126,7 @@
 
                     });
                 } else {
+                    dragPan.disableSelectionOnDrag( 'off' );
                     $parent.off('mousemove');
                 }
             }
