@@ -1,36 +1,30 @@
-#DragPan
+# Dragpan
 
-A jQuery plugin designed to allow click and drag panning of an element.
+A jQuery plugin designed to allow click and drag panning of a scrollable element
 
+## Getting Started
+Download the [production version][min] or the [development version][max].
 
-##Usage
+[min]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.min.js
+[max]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.js
 
-    <div id="document">
-      <div id="content">
-      </div>
-    </div>
-    <script src="path/to/jquery.js"></script>
-    <script src="path/to/dragpan.js"></script>
-    <script>
-    $(document).ready( function () {
-      $("#document").dragpan();
-    });
-    </script>
+In your web page:
 
-##Options
+```html
+<script src="jquery.js"></script>
+<script src="dist/dragpan.min.js"></script>
+<script>
+jQuery(function($) {
+  $.awesome(); // "awesome"
+});
+</script>
+```
 
-####Speed
+## Documentation
+_(Coming soon)_
 
-You can adjust the speed of the drag using the speedX and speedY options.
+## Examples
+_(Coming soon)_
 
-    $("element").dragpan({ speedX: 20, speedY: 20 });
-
-The default speeds are 10, this equates to a 1:1 relationship between mouse movement and scrolling.
-
-####Parent
-
-You can set the parent element, this is useful if the viewport sized element is not the jquery object you are using.
-
-    $("element").dragpan({ parent: $("element").parent() });
-
-By default this will be the element you are using the dragpan method on.
+## Release History
+_(Nothing yet)_
