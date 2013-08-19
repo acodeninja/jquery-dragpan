@@ -1,7 +1,4 @@
 /*jshint -W098 */
-/*! Dragpan - v0.1.0 - 2013-08-19
-* https://github.com/lgoldstien/jquery-dragpan
-* Copyright (c) 2013 Lawrence Goldstien; Licensed MIT */
 (function ($) {
     $.fn.dragpan = function (opts) {
 
@@ -94,7 +91,7 @@
         };
 
         Dragpan.setup();
-
+        return this;
     };
 
 }( jQuery ));

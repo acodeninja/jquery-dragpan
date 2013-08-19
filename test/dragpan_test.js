@@ -20,43 +20,21 @@
       throws(block, [expected], [message])
   */
 
-  module('jQuery#awesome', {
+  module('jQuery#dragpan', {
     // This will run before each test in this module.
     setup: function() {
-      this.elems = $('#qunit-fixture').children();
+      this.elems = $('#parent').dragpan();
     }
   });
 
-  test('is chainable', function() {
+  test('is a function', function() {
     expect(1);
-    // Not a bad test to run on collection methods.
-    strictEqual(this.elems.awesome(), this.elems, 'should be chainable');
+    strictEqual(typeof $.fn.dragpan, 'function', 'dragpan should be a function');
   });
 
-  test('is awesome', function() {
+  test('applies cursor', function() {
     expect(1);
-    strictEqual(this.elems.awesome().text(), 'awesome0awesome1awesome2', 'should be awesome');
-  });
-
-  module('jQuery.awesome');
-
-  test('is awesome', function() {
-    expect(2);
-    strictEqual($.awesome(), 'awesome.', 'should be awesome');
-    strictEqual($.awesome({punctuation: '!'}), 'awesome!', 'should be thoroughly awesome');
-  });
-
-  module(':awesome selector', {
-    // This will run before each test in this module.
-    setup: function() {
-      this.elems = $('#qunit-fixture').children();
-    }
-  });
-
-  test('is awesome', function() {
-    expect(1);
-    // Use deepEqual & .get() when comparing jQuery objects.
-    deepEqual(this.elems.filter(':awesome').get(), this.elems.last().get(), 'knows awesome when it sees it');
+    strictEqual($('#parent').css('cursor'), 'all-scroll', 'the parent should have an all-scroll cursor');
   });
 
 }(jQuery));
