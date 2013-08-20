@@ -6,7 +6,8 @@
         var defaults = {
             speedX: 10, // X Speed default is 10
             speedY: 10, // Y Speed default is 10
-            parent: $(this) // The parent selector
+            parent: $(this), // The parent selector
+            toggle: 'on'
         };
 
         // Set the options to override defaults if any are given
@@ -42,22 +43,12 @@
                     _this.posY = $parent.scrollTop();
                 });
 
-                // On mousedown toggle dragging on
-                $parent.mousedown( function (e) {
-                    _this.lastPosX = e.clientX;
-                    _this.lastPosY = e.clientY;
-                    Dragpan.dragging( 'on' );
-                });
-
-                // On mouseup toggle dragging off
-                $parent.mouseup( function () {
-                    Dragpan.dragging( 'off' );
-                });
-
-                // When the mouse leaves the window toggle dragging off
-                $parent.mouseleave( function () {
-                    Dragpan.dragging( 'off' );
-                });
+                if( options.toggle === 'on' ) {
+                    Dragpan.addMouseBinding();
+                } else {
+                    Dragpan.removeMouseBinding();
+                }
+                
             },
             updateScrollPosition: function (x, y, relational) {
                 // If the new scroll position is in relation to the old ones 
@@ -70,9 +61,9 @@
                     $parent.scrollTop( y );
                 }
             },
-            dragging: function ( toggle ) {
+            dragging: function ( t ) {
                 // If toggling dragging on then add a mousemove event to update the position
-                if ( toggle === 'on' ) {
+                if ( t === 'on' ) {
                     $parent.mousemove(function (e) {
 
                         var x = ( _this.lastPosX - e.clientX ) * (options.speedX / 10);
@@ -87,6 +78,29 @@
                 } else {
                     $parent.off('mousemove');
                 }
+            },
+            addMouseBinding: function () {
+                // On mousedown toggle dragging on
+                $parent.mousedown( function (e) {
+                    _this.lastPosX = e.clientX;
+                    _this.lastPosY = e.clientY;
+                    Dragpan.dragging( 'on' );
+                });
+
+                // On mouseup toggle dragging off
+                $parent.mouseup( function (e) {
+                    Dragpan.dragging( 'off' );
+                });
+
+                // When the mouse leaves the window toggle dragging off
+                $parent.mouseleave( function (e) {
+                    Dragpan.dragging( 'off' );
+                });
+            },
+            removeMouseBinding: function () {
+                $parent.mousedown( function (e) {
+                    Dragpan.dragging( 'off' );
+                });
             }
         };
 
