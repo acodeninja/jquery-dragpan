@@ -12,20 +12,32 @@
         // Set opts to be an object for later use
         var opts = {};
 
+        // Instantiate a new Dragpan if needed
+        if ($(this).dragpan) {
+            console.info('We have dragpan');
+        } else {
+            console.info('We have no dragpan');
+        }
+
+        var dp = ($(this).dragpan) ? $(this).dragpan : new Dragpan;
+
         // If the input is a sting
         if (typeof input === 'string') {
             // Is the input an available API call
             if (input in API) {
                 // If it is then run the API call
+                console.info(API[input]);
             } else {
                 // If not then return nothing
                 return;
             }
         } else if (typeof input === 'object') {
-
+            return this;
+        } else {
+            return this;
         }
         // Set up the variables and default values
-        // var _this = this,
+        // var this = this,
         //     maxX,
         //     maxY,
         //     posX,
@@ -35,36 +47,41 @@
         //     $parent = options.parent,
         //     $child = $parent.children();
 
-        return API;
+        return this;
 
     };
 
     var Dragpan = {
         // Set the internal option defaults
-        defaults: {
+        _defaults: {
             speedX: 10, // X Speed default is 10
             speedY: 10, // Y Speed default is 10
             parent: $(this) // The parent selector
         },
-        setup: function (opts) {
+        options: {},
+        setOptions: function (opts) {
             // Set the options to override defaults if any are given
-            var options = $.extend( defaults, opts );
+            var options = '';//$.extend( _defaults, opts );
+        },
+        setup: function (opts) {
+            // Set the options up
+            this.setOptions(opts);
 
             // Get the maximum width and height of the scrollable content
-            _this.maxX = $child.prop('scrollWidth');
-            _this.maxY = $child.prop('scrollHeight');
+            this.maxX = $child.prop('scrollWidth');
+            this.maxY = $child.prop('scrollHeight');
 
             // Set the all-scroll cursor
             $parent.css( "cursor", "all-scroll" );
 
             // Get the current scroll position
-            _this.posX = $parent.scrollLeft();
-            _this.posY = $parent.scrollTop();
+            this.posX = $parent.scrollLeft();
+            this.posY = $parent.scrollTop();
 
             // If the scroll event is triggered then update scroll position (keys and wheel)
             $parent.scroll( function () {
-                _this.posX = $parent.scrollLeft();
-                _this.posY = $parent.scrollTop();
+                this.posX = $parent.scrollLeft();
+                this.posY = $parent.scrollTop();
             });
 
             Dragpan.addMouseBinding();
@@ -74,8 +91,8 @@
             // If the new scroll position is in relation to the old ones 
             // then update the scroll position based on them
             if ( relational === true ) {
-                $parent.scrollLeft( _this.posX + x );
-                $parent.scrollTop( _this.posY + y );
+                $parent.scrollLeft( this.posX + x );
+                $parent.scrollTop( this.posY + y );
             } else {
                 $parent.scrollLeft( x );
                 $parent.scrollTop( y );
@@ -86,13 +103,13 @@
             if ( t === 'on' ) {
                 $parent.mousemove(function (e) {
 
-                    var x = ( _this.lastPosX - e.clientX ) * (options.speedX / 10);
-                    var y = ( _this.lastPosY - e.clientY ) * (options.speedY / 10);
+                    var x = ( this.lastPosX - e.clientX ) * (options.speedX / 10);
+                    var y = ( this.lastPosY - e.clientY ) * (options.speedY / 10);
 
-                    Dragpan.updateScrollPosition( x, y, true );
+                    this.updateScrollPosition( x, y, true );
 
-                    _this.lastPosX = e.clientX;
-                    _this.lastPosY = e.clientY;
+                    this.lastPosX = e.clientX;
+                    this.lastPosY = e.clientY;
 
                 });
             } else {
@@ -102,25 +119,25 @@
         addMouseBinding: function () {
             // On mousedown toggle dragging on
             $parent.mousedown( function (e) {
-                _this.lastPosX = e.clientX;
-                _this.lastPosY = e.clientY;
-                Dragpan.dragging( 'on' );
+                this.lastPosX = e.clientX;
+                this.lastPosY = e.clientY;
+                this.dragging( 'on' );
             });
 
             // On mouseup toggle dragging off
             $parent.mouseup( function (e) {
-                console.log('Add Binding:mouseup', _this);
-                Dragpan.dragging( 'off' );
+                console.log('Add Binding:mouseup', this);
+                this.dragging( 'off' );
             });
 
             // When the mouse leaves the window toggle dragging off
             $parent.mouseleave( function (e) {
-                Dragpan.dragging( 'off' );
+                this.dragging( 'off' );
             });
         },
         removeMouseBinding: function () {
             $parent.mousedown( function (e) {
-                Dragpan.dragging( 'off' );
+                this.dragging( 'off' );
             });
         }
     };
