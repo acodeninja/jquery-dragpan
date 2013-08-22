@@ -2,7 +2,7 @@
   "name": "dragpan",
   "title": "Dragpan",
   "description": "A jQuery plugin designed to allow click and drag panning of a scrollable element",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/lgoldstien/jquery-dragpan",
   "author": {
     "name": "Lawrence Goldstien",
@@ -21,7 +21,11 @@
     }
   ],
   "dependencies": {
-    "jquery": "*"
+    "jquery": "*",
+    "jquery-ui": "*"
   },
-  "keywords": []
+  "keywords": [
+    "panning",
+    "user interaction"
+  ]
 }
