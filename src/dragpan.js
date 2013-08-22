@@ -1,97 +1,163 @@
-/*jshint -W098 */
-(function ($) {
-    $.fn.dragpan = function (opts) {
+/*jshint -W117 */
+$.widget( "oml.dragpan", {
+    
+    // The widget default options
+    _defaults: {
+        speedX: 10, // X Speed default is 10
+        speedY: 10, // Y Speed default is 10
+        cursor: 'all-scroll', // Cursor default is all-scroll
+        on: true // Default to turning on dragpan on calling the function
+    },
+    vars: {},
 
-        // Set the internal option defaults
-        var defaults = {
-            speedX: 10, // X Speed default is 10
-            speedY: 10, // Y Speed default is 10
-            parent: $(this) // The parent selector
-        };
+    // The public functions
+    on: function () {
+        // Set the cursor
+        _this.options.$parent.css( "cursor", _this.options.cursor );
+        
+        // Disable selection dragging
+        _this.vars.$parent.css( "-webkit-touch-callout", "none" );
+        _this.vars.$parent.css( "-webkit-user-select", "none" );
+        _this.vars.$parent.css( "-khtml-user-select", "none" );
+        _this.vars.$parent.css( "-moz-user-select", "-moz-none" );
+        _this.vars.$parent.css( "-ms-user-select", "none" );
+        _this.vars.$parent.css( "user-select", "none" );
 
-        // Set the options to override defaults if any are given
-        var options = $.extend( defaults, opts );
+        // Add the mouse binding
+        this._addMouseBinding();
+    },
+    off: function () {
+        // Enable selection dragging if it was enabled to begin with
+        if (_this.vars.selection === true) {
+            _this.vars.$parent.css( "-webkit-touch-callout", "all" );
+            _this.vars.$parent.css( "-webkit-user-select", "all" );
+            _this.vars.$parent.css( "-khtml-user-select", "all" );
+            _this.vars.$parent.css( "-moz-user-select", "all" );
+            _this.vars.$parent.css( "-ms-user-select", "all" );
+            _this.vars.$parent.css( "user-select", "all" );
+        }
 
-        // Set up the variables and default values
-        var _this = this,
-            maxX,
-            maxY,
-            posX,
-            posY,
-            lastPosX = 0,
-            lastPosY = 0,
-            $parent = options.parent,
-            $child = $parent.children();
+        // Set back to default cursor
+        _this.options.$parent.css( "cursor", "default" );
 
-        var Dragpan = {
-            setup: function () {
-                // Get the maximum width and height of the scrollable content
-                _this.maxX = $child.prop('scrollWidth');
-                _this.maxY = $child.prop('scrollHeight');
+        // Remove the mouse binding
+        this._removeMouseBinding();
+    },
 
-                // Set the all-scroll cursor
-                $parent.css( "cursor", "all-scroll" );
+    // The class construct
+    _create: function() {
+        // This fix
+        _this = this;
 
-                // Get the current scroll position
-                _this.posX = $parent.scrollLeft();
-                _this.posY = $parent.scrollTop();
+        // Set the parent option as we cannot do this in defaults
+        _this._defaults.$parent = $(_this.element);
 
-                // If the scroll event is triggered then update scroll position (keys and wheel)
-                $parent.scroll( function () {
-                    _this.posX = $parent.scrollLeft();
-                    _this.posY = $parent.scrollTop();
-                });
+        // Set the options based on the defaults (if we have any options)
+        if (typeof _this.options === 'undefined') {
+            _this.options = _this._defaults;
+        } else {
+            _this.options = $.extend( _this._defaults, _this.options );
+        }
 
-                // On mousedown toggle dragging on
-                $parent.mousedown( function (e) {
-                    _this.lastPosX = e.clientX;
-                    _this.lastPosY = e.clientY;
-                    Dragpan.dragging( 'on' );
-                });
+        // Set up the variables used in the function
+        
+        // Set up child and parent elements
+        _this.vars.$parent = _this.options.$parent;
+        _this.vars.$child = _this.vars.$parent.children();
 
-                // On mouseup toggle dragging off
-                $parent.mouseup( function () {
-                    Dragpan.dragging( 'off' );
-                });
+        // Find out the maximum scroll positions
+        _this.vars.maxX = _this.vars.$child.prop('scrollWidth');
+        _this.vars.maxY = _this.vars.$child.prop('scrollHeight');
 
-                // When the mouse leaves the window toggle dragging off
-                $parent.mouseleave( function () {
-                    Dragpan.dragging( 'off' );
-                });
-            },
-            updateScrollPosition: function (x, y, relational) {
-                // If the new scroll position is in relation to the old ones 
-                // then update the scroll position based on them
-                if ( relational === true ) {
-                    $parent.scrollLeft( _this.posX + x );
-                    $parent.scrollTop( _this.posY + y );
-                } else {
-                    $parent.scrollLeft( x );
-                    $parent.scrollTop( y );
-                }
-            },
-            dragging: function ( toggle ) {
-                // If toggling dragging on then add a mousemove event to update the position
-                if ( toggle === 'on' ) {
-                    $parent.mousemove(function (e) {
+        // Set the current X and Y scroll position
+        _this.vars.posX = _this.vars.$parent.scrollLeft();
+        _this.vars.posY = _this.vars.$parent.scrollTop();
 
-                        var x = ( _this.lastPosX - e.clientX ) * (options.speedX / 10);
-                        var y = ( _this.lastPosY - e.clientY ) * (options.speedY / 10);
+        // Set last X and Y to 0 to create the variable
+        _this.vars.lastPosX = 0;
+        _this.vars.lastPosY = 0;
 
-                        Dragpan.updateScrollPosition( x, y, true );
+        // Find out if text selection was enabled before
+        _this.vars.selection = false;
+        if ( _this.vars.$parent.css( "-webkit-touch-callout" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
+        if ( _this.vars.$parent.css( "-webkit-user-select" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
+        if ( _this.vars.$parent.css( "-khtml-user-select" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
+        if ( _this.vars.$parent.css( "-moz-user-select" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
+        if ( _this.vars.$parent.css( "-ms-user-select" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
+        if ( _this.vars.$parent.css( "user-select" ) !== 'none' ){
+            _this.vars.selection = true;
+        }
 
-                        _this.lastPosX = e.clientX;
-                        _this.lastPosY = e.clientY;
+        // If the scroll event is triggered then update scroll position (keys and wheel)
+        _this.vars.$parent.scroll( function () {
+            _this.vars.posX = _this.vars.$parent.scrollLeft();
+            _this.vars.posY = _this.vars.$parent.scrollTop();
+        });
 
-                    });
-                } else {
-                    $parent.off('mousemove');
-                }
-            }
-        };
+        // Trigger the mouse binding if this is set to on
+        if( _this.options.on === true ) {
+            this.on();
+        }
+    },
+    _dragging: function ( action ) {
+        if ( action === 'on' ) {
+            _this.vars.$parent.mousemove(function (e) {
 
-        Dragpan.setup();
-        return this;
-    };
+                var x = ( _this.vars.lastPosX - e.clientX ) * (_this.options.speedX / 10);
+                var y = ( _this.vars.lastPosY - e.clientY ) * (_this.options.speedY / 10);
 
-}( jQuery ));
+                _this._updateScrollPosition( x, y, true );
+
+                _this.vars.lastPosX = e.clientX;
+                _this.vars.lastPosY = e.clientY;
+
+            });
+        } else {
+            _this.vars.$parent.off('mousemove');
+        }
+    },
+    _updateScrollPosition: function (x, y, relational) {
+        // If the new scroll position is in relation to the old ones 
+        // then update the scroll position based on them
+        if ( relational === true ) {
+            _this.vars.$parent.scrollLeft( _this.vars.posX + x );
+            _this.vars.$parent.scrollTop( _this.vars.posY + y );
+        } else {
+            _this.vars.$parent.scrollLeft( x );
+            _this.vars.$parent.scrollTop( y );
+        }
+    },
+    _addMouseBinding: function () {
+        // On mousedown toggle dragging on
+        _this.vars.$parent.mousedown( function (e) {
+            _this.vars.lastPosX = e.clientX;
+            _this.vars.lastPosY = e.clientY;
+            _this._dragging( 'on' );
+        });
+
+        // On mouseup toggle dragging off
+        _this.vars.$parent.mouseup( function (e) {
+            _this._dragging( 'off' );
+        });
+
+        // When the mouse leaves the window toggle dragging off
+        _this.vars.$parent.mouseleave( function (e) {
+            _this._dragging( 'off' );
+        });
+    },
+    _removeMouseBinding: function () {
+        _this.vars.$parent.off();
+        _this._dragging( 'off' );
+    }
+ 
+});
