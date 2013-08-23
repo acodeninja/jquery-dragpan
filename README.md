@@ -8,6 +8,14 @@ Download the [production version][min] or the [development version][max].
 [min]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.min.js
 [max]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.js
 
+###Requirements
+
+jQuery Dragpan has the following requirements:
+
+* [jQuery](http://jquery.com/download/)
+* [jQuery UI](http://jqueryui.com/download/)
+  * Requires UI Core - Core and Widget
+
 ###Usage
 
     <div id="document">
@@ -23,6 +31,8 @@ Download the [production version][min] or the [development version][max].
     </script>
 
 ###Options
+
+Options can be parsed when Dragpan is instatiated on an element or after.
 
 ####Speed
 
@@ -40,11 +50,26 @@ You can set the parent element, this is useful if the viewport sized element is 
 
 By default this will be the element you are using the dragpan method on.
 
-## Documentation
-_(Coming soon)_
+####On
 
-## Examples
-_(Coming soon)_
+You can tell dragpan to instantiate without enabling functionality using the following:
 
-## Release History
-_(Nothing yet)_
+    $("element").dragpan({ on: false });
+
+This will default to true meaning if you do not specify this then the dragpan functionality will be enabled.
+
+###Methods
+
+You can use methods the following non-private methods:
+
+####On
+
+You can turn on dragpan functionality using the following on an already instantiated dragpan instance.
+
+    $("element").dragpan('on');
+
+####Off
+
+You can turn off the dragpan functionality using the following on an already instantiated dragpan instance.
+
+    $("element").dragpan('off');

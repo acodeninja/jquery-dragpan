@@ -10,40 +10,6 @@ $.widget( "oml.dragpan", {
     },
     vars: {},
 
-    // The public functions
-    on: function () {
-        // Set the cursor
-        _this.options.$parent.css( "cursor", _this.options.cursor );
-        
-        // Disable selection dragging
-        _this.vars.$parent.css( "-webkit-touch-callout", "none" );
-        _this.vars.$parent.css( "-webkit-user-select", "none" );
-        _this.vars.$parent.css( "-khtml-user-select", "none" );
-        _this.vars.$parent.css( "-moz-user-select", "-moz-none" );
-        _this.vars.$parent.css( "-ms-user-select", "none" );
-        _this.vars.$parent.css( "user-select", "none" );
-
-        // Add the mouse binding
-        this._addMouseBinding();
-    },
-    off: function () {
-        // Enable selection dragging if it was enabled to begin with
-        if (_this.vars.selection === true) {
-            _this.vars.$parent.css( "-webkit-touch-callout", "all" );
-            _this.vars.$parent.css( "-webkit-user-select", "all" );
-            _this.vars.$parent.css( "-khtml-user-select", "all" );
-            _this.vars.$parent.css( "-moz-user-select", "all" );
-            _this.vars.$parent.css( "-ms-user-select", "all" );
-            _this.vars.$parent.css( "user-select", "all" );
-        }
-
-        // Set back to default cursor
-        _this.options.$parent.css( "cursor", "default" );
-
-        // Remove the mouse binding
-        this._removeMouseBinding();
-    },
-
     // The class construct
     _create: function() {
         // This fix
@@ -161,6 +127,40 @@ $.widget( "oml.dragpan", {
     _removeMouseBinding: function () {
         _this.vars.$parent.off();
         _this._dragging( 'off' );
+    },
+
+    // The public functions
+    on: function () {
+        // Set the cursor
+        _this.options.$parent.css( "cursor", _this.options.cursor );
+        
+        // Disable selection dragging
+        _this.vars.$parent.css( "-webkit-touch-callout", "none" );
+        _this.vars.$parent.css( "-webkit-user-select", "none" );
+        _this.vars.$parent.css( "-khtml-user-select", "none" );
+        _this.vars.$parent.css( "-moz-user-select", "-moz-none" );
+        _this.vars.$parent.css( "-ms-user-select", "none" );
+        _this.vars.$parent.css( "user-select", "none" );
+
+        // Add the mouse binding
+        this._addMouseBinding();
+    },
+    off: function () {
+        // Enable selection dragging if it was enabled to begin with
+        if (_this.vars.selection === true) {
+            _this.vars.$parent.css( "-webkit-touch-callout", "all" );
+            _this.vars.$parent.css( "-webkit-user-select", "all" );
+            _this.vars.$parent.css( "-khtml-user-select", "all" );
+            _this.vars.$parent.css( "-moz-user-select", "all" );
+            _this.vars.$parent.css( "-ms-user-select", "all" );
+            _this.vars.$parent.css( "user-select", "all" );
+        }
+
+        // Set back to default cursor
+        _this.options.$parent.css( "cursor", "default" );
+
+        // Remove the mouse binding
+        this._removeMouseBinding();
     }
  
 });
