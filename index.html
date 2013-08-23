@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>jQuery Dragpan by lgoldstien</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>jQuery Dragpan</h1>
+        <p>A jQuery plugin designed to allow click and drag panning of an element.</p>
+        <p class="view"><a href="https://github.com/lgoldstien/jquery-dragpan">View the Project on GitHub <small>lgoldstien/jquery-dragpan</small></a></p>
+        <ul>
+          <li><a href="https://github.com/lgoldstien/jquery-dragpan/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/lgoldstien/jquery-dragpan/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/lgoldstien/jquery-dragpan">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="dragpan" class="anchor" href="#dragpan"><span class="octicon octicon-link"></span></a>Dragpan</h1>
+
+<p>A jQuery plugin designed to allow click and drag panning of a scrollable element</p>
+
+<h2>
+<a name="getting-started" class="anchor" href="#getting-started"><span class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Download the <a href="https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.min.js">production version</a> or the <a href="https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.js">development version</a>.</p>
+
+<h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<p>jQuery Dragpan has the following requirements:</p>
+
+<ul>
+<li><a href="http://jquery.com/download/">jQuery</a></li>
+<li>
+<a href="http://jqueryui.com/download/">jQuery UI</a>
+
+<ul>
+<li>Requires UI Core - Core and Widget</li>
+</ul>
+</li>
+</ul><h3>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h3>
+
+<pre><code>&lt;div id="document"&gt;
+  &lt;div id="content"&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;script src="path/to/jquery.js"&gt;&lt;/script&gt;
+&lt;script src="path/to/dragpan.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+$(document).ready( function () {
+  $("#document").dragpan();
+});
+&lt;/script&gt;
+</code></pre>
+
+<h3>
+<a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
+
+<p>Options can be parsed when Dragpan is instatiated on an element or after.</p>
+
+<h4>
+<a name="speed" class="anchor" href="#speed"><span class="octicon octicon-link"></span></a>Speed</h4>
+
+<p>You can adjust the speed of the drag using the speedX and speedY options.</p>
+
+<pre><code>$("element").dragpan({ speedX: 20, speedY: 20 });
+</code></pre>
+
+<p>The default speeds are 10, this equates to a 1:1 relationship between mouse movement and scrolling.</p>
+
+<h4>
+<a name="parent" class="anchor" href="#parent"><span class="octicon octicon-link"></span></a>Parent</h4>
+
+<p>You can set the parent element, this is useful if the viewport sized element is not the jquery object you are using.</p>
+
+<pre><code>$("element").dragpan({ parent: $("element").parent() });
+</code></pre>
+
+<p>By default this will be the element you are using the dragpan method on.</p>
+
+<h4>
+<a name="on" class="anchor" href="#on"><span class="octicon octicon-link"></span></a>On</h4>
+
+<p>You can tell dragpan to instantiate without enabling functionality using the following:</p>
+
+<pre><code>$("element").dragpan({ on: false });
+</code></pre>
+
+<p>This will default to true meaning if you do not specify this then the dragpan functionality will be enabled.</p>
+
+<h3>
+<a name="methods" class="anchor" href="#methods"><span class="octicon octicon-link"></span></a>Methods</h3>
+
+<p>You can use methods the following non-private methods:</p>
+
+<h4>
+<a name="on-1" class="anchor" href="#on-1"><span class="octicon octicon-link"></span></a>On</h4>
+
+<p>You can turn on dragpan functionality using the following on an already instantiated dragpan instance.</p>
+
+<pre><code>$("element").dragpan('on');
+</code></pre>
+
+<h4>
+<a name="off" class="anchor" href="#off"><span class="octicon octicon-link"></span></a>Off</h4>
+
+<p>You can turn off the dragpan functionality using the following on an already instantiated dragpan instance.</p>
+
+<pre><code>$("element").dragpan('off');
+</code></pre>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/lgoldstien">lgoldstien</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-42124869-3");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
