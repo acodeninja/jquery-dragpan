@@ -46,6 +46,9 @@ $.widget( "oml.dragpan", {
         _this.vars.lastPosX = 0;
         _this.vars.lastPosY = 0;
 
+        // Set up a var to store the state of dragpan
+        _this.vars.state = 'off';
+
         // Find out if text selection was enabled before
         _this.vars.selection = false;
         if ( _this.vars.$parent.css( "-webkit-touch-callout" ) !== 'none' ){
@@ -125,42 +128,58 @@ $.widget( "oml.dragpan", {
         });
     },
     _removeMouseBinding: function () {
-        _this.vars.$parent.off();
+        _this.vars.$parent.off('mousemove');
+        _this.vars.$parent.off('mousedown');
+        _this.vars.$parent.off('mouseup');
+        _this.vars.$parent.off('mouseleave');
         _this._dragging( 'off' );
+    },
+    _state: function () {
+        return _this.vars.state;
     },
 
     // The public functions
     on: function () {
-        // Set the cursor
-        _this.options.$parent.css( "cursor", _this.options.cursor );
-        
-        // Disable selection dragging
-        _this.vars.$parent.css( "-webkit-touch-callout", "none" );
-        _this.vars.$parent.css( "-webkit-user-select", "none" );
-        _this.vars.$parent.css( "-khtml-user-select", "none" );
-        _this.vars.$parent.css( "-moz-user-select", "-moz-none" );
-        _this.vars.$parent.css( "-ms-user-select", "none" );
-        _this.vars.$parent.css( "user-select", "none" );
+        if (this._state() === 'off') {
+            // Set the cursor
+            _this.options.$parent.css( "cursor", _this.options.cursor );
+            
+            // Disable selection dragging
+            _this.vars.$parent.css( "-webkit-touch-callout", "none" );
+            _this.vars.$parent.css( "-webkit-user-select", "none" );
+            _this.vars.$parent.css( "-khtml-user-select", "none" );
+            _this.vars.$parent.css( "-moz-user-select", "-moz-none" );
+            _this.vars.$parent.css( "-ms-user-select", "none" );
+            _this.vars.$parent.css( "user-select", "none" );
 
-        // Add the mouse binding
-        this._addMouseBinding();
+            // Add the mouse binding
+            this._addMouseBinding();
+
+            // Set the state to on
+            _this.vars.state = 'on';
+        }
     },
     off: function () {
-        // Enable selection dragging if it was enabled to begin with
-        if (_this.vars.selection === true) {
-            _this.vars.$parent.css( "-webkit-touch-callout", "all" );
-            _this.vars.$parent.css( "-webkit-user-select", "all" );
-            _this.vars.$parent.css( "-khtml-user-select", "all" );
-            _this.vars.$parent.css( "-moz-user-select", "all" );
-            _this.vars.$parent.css( "-ms-user-select", "all" );
-            _this.vars.$parent.css( "user-select", "all" );
+        if (this._state() === 'on') {
+            // Enable selection dragging if it was enabled to begin with
+            if (_this.vars.selection === true) {
+                _this.vars.$parent.css( "-webkit-touch-callout", "all" );
+                _this.vars.$parent.css( "-webkit-user-select", "all" );
+                _this.vars.$parent.css( "-khtml-user-select", "all" );
+                _this.vars.$parent.css( "-moz-user-select", "all" );
+                _this.vars.$parent.css( "-ms-user-select", "all" );
+                _this.vars.$parent.css( "user-select", "all" );
+            }
+
+            // Set back to default cursor
+            _this.options.$parent.css( "cursor", "default" );
+
+            // Remove the mouse binding
+            this._removeMouseBinding();
+            
+            // Set the state to off
+            _this.vars.state = 'off';
         }
-
-        // Set back to default cursor
-        _this.options.$parent.css( "cursor", "default" );
-
-        // Remove the mouse binding
-        this._removeMouseBinding();
     }
  
 });
