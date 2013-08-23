@@ -49,14 +49,17 @@
     strictEqual($('#parent').css('cursor'), 'all-scroll', 'the parent should have an all-scroll cursor by default');
   });
 
-  module('Dragpan With Options', {
-    setup: function () {
-      this.elems = $('#parent').dragpan({ cursor: 'pointer', speedX: 50, speedY: 60 });
-    }
-  });
+  module('Dragpan With Options', {});
 
   test('Drapan uses specified cursor', function() {
     expect(1);
+    $('#parent').dragpan({ cursor: 'pointer' });
+    strictEqual($('#parent').css('cursor'), 'pointer', 'the parent should have a pointer cursor for this test');
+  });
+
+  test('Drapan uses specified parent', function() {
+    expect(1);
+    $('#child').dragpan({ parent: $('#parent') });
     strictEqual($('#parent').css('cursor'), 'pointer', 'the parent should have a pointer cursor for this test');
   });
 
@@ -69,7 +72,11 @@
 
   test('defaul cursor', function() {
     expect(1);
-    strictEqual($('#parent').css('cursor'), 'default', 'the parent should have a pointer cursor for this test');
+    var cursor = false;
+    if ( $('#parent').css('cursor') === 'default' || $('#parent').css('cursor') === 'auto' ) { 
+      cursor = true;
+    }
+    strictEqual( cursor, true, 'the parent should have a default cursor for this test');
   });
 
 

@@ -58,6 +58,9 @@ $.widget( "oml.dragpan", {
         } else {
             _this.options = $.extend( _this._defaults, _this.options );
         }
+        if (typeof _this.options.parent === 'object') {
+            _this.options.$parent = _this.options.parent;
+        }
 
         // Set up the variables used in the function
         
