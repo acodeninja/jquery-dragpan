@@ -6,7 +6,8 @@ $.widget( "oml.dragpan", {
         speedX: 10, // X Speed default is 10
         speedY: 10, // Y Speed default is 10
         cursor: 'all-scroll', // Cursor default is all-scroll
-        on: true // Default to turning on dragpan on calling the function
+        on: true, // Default to turning on dragpan on calling the function
+        bodyselect: false // Default to turning selection on the body off completely
     },
     vars: {},
 
@@ -137,7 +138,17 @@ $.widget( "oml.dragpan", {
     _state: function () {
         return _this.vars.state;
     },
-
+    // Turn off selection for the entire page
+    _selectionOff: function () {
+        if (_this.vars.bodyselect === false) {
+            $('body').css( "-webkit-touch-callout", "none" );
+            $('body').css( "-webkit-user-select", "none" );
+            $('body').css( "-khtml-user-select", "none" );
+            $('body').css( "-moz-user-select", "-moz-none" );
+            $('body').css( "-ms-user-select", "none" );
+            $('body').css( "user-select", "none" );
+        }
+    },
     // The public functions
     on: function () {
         if (this._state() === 'off') {
@@ -154,6 +165,9 @@ $.widget( "oml.dragpan", {
 
             // Add the mouse binding
             this._addMouseBinding();
+
+            // Turn off selection on body if set
+            this._selectionOff();
 
             // Set the state to on
             _this.vars.state = 'on';
