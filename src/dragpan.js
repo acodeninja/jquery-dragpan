@@ -1,6 +1,9 @@
+(function () {
+var _this;
+
 /*jshint -W117 */
 $.widget( "oml.dragpan", {
-    
+
     // The widget default options
     _defaults: {
         speedX: 10, // X Speed default is 10
@@ -30,7 +33,7 @@ $.widget( "oml.dragpan", {
         }
 
         // Set up the variables used in the function
-        
+
         // Set up child and parent elements
         _this.vars.$parent = _this.options.$parent;
         _this.vars.$child = _this.vars.$parent.children();
@@ -100,7 +103,7 @@ $.widget( "oml.dragpan", {
         }
     },
     _updateScrollPosition: function (x, y, relational) {
-        // If the new scroll position is in relation to the old ones 
+        // If the new scroll position is in relation to the old ones
         // then update the scroll position based on them
         if ( relational === true ) {
             _this.vars.$parent.scrollLeft( _this.vars.posX + x );
@@ -154,7 +157,7 @@ $.widget( "oml.dragpan", {
         if (this._state() === 'off') {
             // Set the cursor
             _this.options.$parent.css( "cursor", _this.options.cursor );
-            
+
             // Disable selection dragging
             _this.vars.$parent.css( "-webkit-touch-callout", "none" );
             _this.vars.$parent.css( "-webkit-user-select", "none" );
@@ -190,10 +193,11 @@ $.widget( "oml.dragpan", {
 
             // Remove the mouse binding
             this._removeMouseBinding();
-            
+
             // Set the state to off
             _this.vars.state = 'off';
         }
     }
- 
+
 });
+})()
