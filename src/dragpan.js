@@ -1,4 +1,7 @@
+/* global $: false */
+
 (function () {
+"use strict";
 var _this;
 
 /*jshint -W117 */
@@ -200,4 +203,4 @@ $.widget( "oml.dragpan", {
     }
 
 });
-})()
+})();
