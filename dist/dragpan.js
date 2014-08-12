@@ -1,5 +1,6 @@
-/* global $: false */
-
+/*! Dragpan - v1.0.2 - 2014-08-12
+* https://github.com/lgoldstien/jquery-dragpan
+* Copyright (c) 2014 Lawrence Goldstien; Licensed MIT */
 (function () {
     "use strict";
 
