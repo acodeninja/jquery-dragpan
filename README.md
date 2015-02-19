@@ -1,4 +1,4 @@
-# Dragpan
+# Dragpan ![Travis Build Status](https://travis-ci.org/lgoldstien/jquery-dragpan.svg)
 
 A jQuery plugin designed to allow click and drag panning of a scrollable element
 
