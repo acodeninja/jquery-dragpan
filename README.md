@@ -1,15 +1,15 @@
 # Dragpan [![Travis Build Status][build img]][build link]
 
-[build img]: https://travis-ci.org/lgoldstien/jquery-dragpan.svg
-[build link]: https://travis-ci.org/lgoldstien/jquery-dragpan
+[build img]: https://travis-ci.org/acodeninja/jquery-dragpan.svg
+[build link]: https://travis-ci.org/acodeninja/jquery-dragpan
 
 A jQuery plugin designed to allow click and drag panning of a scrollable element
 
 ## Getting Started
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.min.js
-[max]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.js
+[min]: https://raw.github.com/acodeninja/jquery-dragpan/master/dist/dragpan.min.js
+[max]: https://raw.github.com/acodeninja/jquery-dragpan/master/dist/dragpan.js
 
 ### Requirements
 
