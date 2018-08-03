@@ -11,7 +11,7 @@ Download the [production version][min] or the [development version][max].
 [min]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.min.js
 [max]: https://raw.github.com/lgoldstien/jquery-dragpan/master/dist/dragpan.js
 
-###Requirements
+### Requirements
 
 jQuery Dragpan has the following requirements:
 
@@ -19,49 +19,57 @@ jQuery Dragpan has the following requirements:
 * [jQuery UI](http://jqueryui.com/download/)
   * Requires UI Core - Core and Widget
 
-###Usage
+### Usage
 
-    <div id="document">
-      <div id="content">
-      </div>
+```html
+<div id="document">
+    <div id="content">
     </div>
-    <script src="path/to/jquery.js"></script>
-    <script src="path/to/dragpan.js"></script>
-    <script>
+</div>
+<script src="path/to/jquery.js"></script>
+<script src="path/to/dragpan.js"></script>
+<script>
     $(document).ready( function () {
       $("#document").dragpan();
     });
-    </script>
+</script>
+```
 
-###Options
+### Options
 
 Options can be parsed when Dragpan is instatiated on an element or after.
 
-####Speed
+#### Speed
 
 You can adjust the speed of the drag using the speedX and speedY options.
 
-    $("element").dragpan({ speedX: 20, speedY: 20 });
+```javascript
+$("element").dragpan({ speedX: 20, speedY: 20 });
+```
 
 The default speeds are 10, this equates to a 1:1 relationship between mouse movement and scrolling.
 
-####Parent
+#### Parent
 
 You can set the parent element, this is useful if the viewport sized element is not the jquery object you are using.
 
-    $("element").dragpan({ parent: $("element").parent() });
+```javascript
+$("element").dragpan({ parent: $("element").parent() });
+```
 
 By default this will be the element you are using the dragpan method on.
 
-####On
+#### On
 
 You can tell dragpan to instantiate without enabling functionality using the following:
 
-    $("element").dragpan({ on: false });
+```javascript
+$("element").dragpan({ on: false });
+```
 
 This will default to true meaning if you do not specify this then the dragpan functionality will be enabled.
 
-###Methods
+### Methods
 
 You can use methods the following non-private methods:
 
@@ -69,10 +77,14 @@ You can use methods the following non-private methods:
 
 You can turn on dragpan functionality using the following on an already instantiated dragpan instance.
 
+```javascript
     $("element").dragpan('on');
+```
 
-####Off
+#### Off
 
 You can turn off the dragpan functionality using the following on an already instantiated dragpan instance.
 
+```javascript
     $("element").dragpan('off');
+```
